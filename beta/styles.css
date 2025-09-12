@@ -1,4 +1,34 @@
 body {
   min-height: 200rem;
-  padding-top: 3.5rem;
+  font-family: Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial;
+}
+
+.banner {
+  background-image: url(bkgrnd.png); 
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+@media (min-width: 768px) {
+  body {
+      padding-top: 5.5rem;
+  }
+
+  .banner {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+      padding-top: 3.5rem;
+  }
+
+  .banner {
+    min-height: 250px;
+  }
 }
