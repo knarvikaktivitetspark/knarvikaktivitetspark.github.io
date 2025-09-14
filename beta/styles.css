@@ -5,6 +5,15 @@ body {
   border: none;
 }
 
+.bg-white {
+  background-color: white;
+}
+
+.link-fix {
+  margin-top: -100px; 
+  padding-top: 100px;
+}
+
 
 /* 
 
