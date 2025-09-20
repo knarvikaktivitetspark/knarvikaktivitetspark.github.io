@@ -15,7 +15,7 @@
 <body>
   <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm" style="height: 100px;">
     <div class="container">
-      <a class="navbar-brand" href="#"><img src="logo.png" style="max-height: 60px;"></a>
+      <a class="navbar-brand" href="#"><img src="logo.svg" style="max-height: 60px;"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,9 +33,23 @@
 
   <div style="margin-top: 100px;"></div>
 
-  <div class="container-fluid px-3 pt-5 pb-4 text-center bg-dark text-light ">
-    <h1 class="display-2">Møteplass for ungdom</h1>
-    <div class="col-lg-6 mx-auto">
+  <div class="container-fluid px-3 pt-5 text-center bg-dark bg-gradient text-light">
+    <h1 class="display-3">Ny Aktivitetspark i Knarvik</h1>
+    <p>Et samarbeid for barn og unge</p>
+    <p class="mt-4">
+      <a href="#bidra" class="btn btn-lg btn-light m-2 shadow">Bli med å bidra</a>
+      <a href="#kontakt" class="btn btn-lg btn-dark m-2 shadow">Gi oss tilbakemelding</a>
+    </p>
+
+    <div class="mt-5">
+      <img class="img-fluid rounded-top shadow-sm" src="banner.png" />
+    </div>
+  </div>
+
+  <div id="om" class="link-fix"></div>
+  <div class="container-fluid bg-light px-3 py-5 text-center border-bottom">
+    <h1 class="display-3">Om prosjektet</h1>
+    <div class="col-12 col-lg-8 col-xl-6 mx-auto text-start">
       <p>Knarvik Idrettslag har, i samarbeid med Stallane Vel, Alver kommune og ikke minst Betongpark AS lagt spennende
         planer for en ny aktivitetspark i Knarvik.</p>
 
@@ -49,41 +63,7 @@
 
       <p>Dette blir et flott tilbud for nærmiljøet – og et viktig tiltak for å fremme fysisk aktivitet og sosialt
         fellesskap blant barn og unge i Alver kommune!</p>
-      <p class="mt-4">
-        <a href="#bidra" class="btn btn-primary mt-2">Bli med å bidra</a>
-        <a href="#kontakt" class="btn btn-secondary mt-2">Gi oss tilbakemelding</a>
-      </p>
-    </div>
-  </div>
-
-  <div class="container mt-4">
-    <div class="row">
-      <div class="col-12 col-md-4 mb-4">
-        <img class="img-fluid rounded shadow-sm" src="sykkel.png" />
-      </div>
-      <div class="col-12 col-md-4 mb-4">
-        <img class="img-fluid rounded shadow-sm" src="skateboard.png" />
-      </div>
-      <div class="col-12 col-md-4 mb-4">
-        <img class="img-fluid rounded shadow-sm" src="sparkesykkel.png" />
-      </div>
-    </div>
-  </div>
-
-  <div id="om" class="link-fix"></div>
-  <div class="container-fluid bg-light px-3 py-5 text-center border">
-    <h1 class="display-3">Om prosjektet</h1>
-    <div class="col-12 col-lg-8 col-xl-6 mx-auto text-start">
-      <p>
-        I sammarbeid med Knarvik Idrettslag, Alver Kommune, Stallane Vel og Betongpark har vi lagt planer
-        for å bygge en aktivitetspark i Knarvik. Her blir det skatepark og pumptrack tillrettelagt barn og unge.
-        Parken vil ha et bredt bruksområde da det kan utnyttes med skateboard, sykkeler eller sparkesykkel.
-        Dette blir et kjempe tilbud for barn og unge på tvers av alder og kjønn.
-      </p>
-      <p>
-        Parken er planlagt i Stallane som ligger nært både Knarvik Senter og Knarvik Barneskole, og er
-        godt tillrettelagt med gang og sykkelvei.
-      </p>
+        
       <p><img src="stallane.png" class="img-fluid rounded shadow" /></p>
       <p>
         Så langt har vi fått økonomisk støtte fra Knarvik Idrettslag, og venter på svar fra flere lokale
@@ -92,10 +72,31 @@
       </p>
       <h2 class="display-6 text-center mt-5">Design</h2>
       <p>
-        Bildet viser design utkast fra Betongpark AS. Vi ønsker tilbakemelding fra barn og unge på hvordan
+        Bildet viser designutkast fra Betongpark AS. Vi ønsker tilbakemelding fra barn og unge på hvordan
         parken skal utformes. Er det elementer som mangler? Burde noen deler vært større eller mindre?
       </p>
-      <p><img src="design.png" class="img-fluid rounded-4 border shadow-sm" alt="Design utkast"></p>
+      <p>
+        <span class="fw-bold">Skatepark</span> delen inneholder mange forskjellige elementer, hvor de fleste kan brukes på skateboard, 
+        sykkel, eller sparkesykkel. Her er det lagt inn quarterpipe (1), central quarterpipe island (2),
+        driveway med rainbow rail (3), manny pad (4), ledge (5), flat bar rail (6), volcano (7), flat 
+        bank hip med blended pump bump (8), quarterpipe med bowl corner (9), flat bank (10), mini ramp
+        med roll over bumps (11), jump ramp (12), extension bowl corner (13), og central island med
+        rolled edge (14).
+      </p>
+      <p>
+        <span class="fw-bold">Pumptrack</span> delen vil også kunne brukes på sykkel, skateboard, eller sparkesykkel. Med flere kuler, 
+        hopp og doseringer. Nybegynnere i denne delen må nok trø litt på sykkelen, men etterhvert kommer ferdigheten med å pumpe på 
+        kulene som mye fart og morro. For de mer erfarne er det og hopp.
+      </p>
+      <p>
+        <span class="fw-bold">Annet</span> det blir også lagt inn flere benker (16/17), og et leke område med for eksempel balansebom, 
+        slakline, og trampoline.
+      </p>
+      <p>
+        Dette skal bli et område som passer barn og unge i alle aldre, både med og uten erfaring fra skateparker og pumptracker. 
+        Kanskje er det også noen voksne som vil kose seg her og. Dette skal bli et ordentlig samlingspunkt for barn og unge!
+      </p>
+      <p><a href="design.png" target="_blank"><img src="design.png" class="img-fluid" alt="Design utkast"></a></p>
 
       <div class="row text-center">
         <div class="col-12 col-md-6">
@@ -170,42 +171,47 @@
         Vi trenger økonomisk støtte fra lokale bedrifter og privatpersoner for a realisere prosjektet.
         Har ditt firma anledning til å bidra? Eller ønsker du å støtte selv som privatperson?
       </p>
-      <a class="btn btn-primary fs-5" href="#kontakt">Ta kontakt med oss for å bidra!</a>
+      <p class="mt-5">
+        <a class="btn btn-primary fs-5" href="#kontakt">Ta kontakt med oss for å bidra!</a>
       </p>
     </div>
   </div>
 
   <div id="sponsorer" class="link-fix"></div>
-  <div class="container-fluid my-5 text-center">
+  <div class="container-fluid my-5 text-center border-top pt-5">
     <h1 class="display-3">Sponsorer</h1>
     <div class="col-12 col-md-6 mx-auto">
       <p>Alle bedrifter og privatpersoner som er med på sponse prosjektet vil få logo og navn lagt ut her etterhvert.
       </p>
     </div>
     <div class="col-12 col-md-4 mx-auto">
-      <div class="row">
-        <div class="col-6 mx-6"><a href="https://www.knarvikidrettslag.no/"><img class="img-fluid"
+      <div class="row mt-5">
+        <div class="col-6 mx-6"><a href="https://www.meng.no/"><img class="img-fluid"
+              src="sponsor-meng.png"></a></div>
+        <div class="col-6 mx-6"><a href="https://www.knarvikidrettslag.no/"><img class="img-fluid rounded"
               src="sponsor-kil.png"></a></div>
-        <div class="col-6 pt-6 rounded">
-          <div class="btn btn-secondary p-2 shadow border">Vil du ha din bedrift her? Ta kontakt med oss!</div>
-        </div>
       </div>
     </div>
 
   </div>
 
   <div id="kontakt" class="link-fix"></div>
-  <div class="container-fluid bg-dark text-light pt-5 text-center" style=" min-height: 800px;">
+  <div class="container-fluid bg-dark text-light pt-5 text-center" style=" min-height: 600px;">
     <div class="container">
       <h1 class="display-2">Kontakt</h1>
       <p>Har du spørsmål om prosjektet, lyst til å være med å bidra, eller vil gi tilbakemelding? Ta kontakt med oss!
       </p>
-      <p class="fs-5">
-        <a class="link-light btn btn-primary m-1" href="mailto:stian@knarvikaktivitetspark.no"><i
-            class="bi bi-mailbox"></i> stian@knarvikaktivitetspark.no</a>
-        <a class="link-light btn btn-secondary m-1" href="tel:+4796919284"><i class="bi bi-phone"></i> +47 96 91 92
-          84</a>
-      </p>
+      <p class="display-6 mt-5">Fridtjof Finsnes Henriksen</p>
+      <a class="link-dark btn btn-light m-1" href="mailto:superfritt@gmail.com"><i
+          class="bi bi-mailbox"></i> superfritt@gmail.com</a>
+      <a class="link-light btn btn-secondary m-1" href="tel:+4745083666"><i class="bi bi-phone"></i> +47 96 91 92
+        84</a>
+
+      <p class="display-6 mt-5">Stian Thorgersen</p>
+      <a class="link-dark btn btn-light m-1" href="mailto:stian@knarvikaktivitetspark.no"><i
+          class="bi bi-mailbox"></i> stian@knarvikaktivitetspark.no</a>
+      <a class="link-light btn btn-secondary m-1" href="tel:+4796919284"><i class="bi bi-phone"></i> +47 96 91 92
+        84</a>
     </div>
   </div>
 
