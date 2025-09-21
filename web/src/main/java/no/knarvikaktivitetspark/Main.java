@@ -1,5 +1,7 @@
 package no.knarvikaktivitetspark;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
@@ -22,37 +24,40 @@ import java.util.Properties;
 
 public class Main {
 
-    private static final File templates =  new File("templates");
-    private static final File target =  new File("target");
-    private static final File images =  new File("images");
-    private static final File resources =  new File("resources");
+    private static final File TEMPLATES_DIR =  new File("templates");
+    private static final File TARGET_DIR =  new File("target");
+    private static final File IMAGES_DIR =  new File("images");
+    private static final File RESOURCES_DIR =  new File("resources");
+    private static final File DATA_DIR =  new File("data");
+
+    private static Map<String, Object> data = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         copyNpmResources();
         copyImages();
         copyResources();
+        loadData();
         build();
         browserSync();
 
-        new Thread(() -> watch(templates, Main::build)).start();
-        new Thread(() -> watch(images, Main::copyImages)).start();
-        new Thread(() -> watch(resources, Main::copyResources)).start();
+        new Thread(() -> watch(TEMPLATES_DIR, Main::build)).start();
+        new Thread(() -> watch(IMAGES_DIR, Main::copyImages)).start();
+        new Thread(() -> watch(RESOURCES_DIR, Main::copyResources)).start();
+        new Thread(() -> watch(DATA_DIR, () -> { loadData(); build(); })).start();
     }
 
     public static void build() {
         try {
             Configuration cfg = new Configuration(Configuration.VERSION_2_3_34);
-            cfg.setDirectoryForTemplateLoading(templates);
+            cfg.setDirectoryForTemplateLoading(TEMPLATES_DIR);
             cfg.setDefaultEncoding(StandardCharsets.UTF_8.toString());
-
-            Map<String, String> map = new HashMap<>();
 
             Template template = cfg.getTemplate("index.ftl");
 
-            if (!target.isDirectory()) target.mkdir();
+            if (!TARGET_DIR.isDirectory()) TARGET_DIR.mkdir();
 
-            try (Writer out = new FileWriter(new File(target, "index.html"))) {
-                template.process(map, out);
+            try (Writer out = new FileWriter(new File(TARGET_DIR, "index.html"))) {
+                template.process(data, out);
             }
 
             System.out.println("Built pages");
@@ -62,12 +67,12 @@ public class Main {
     }
 
     public static void copyImages() {
-        Arrays.stream(images.listFiles(file -> file.getName().endsWith(".png") || file.getName().endsWith(".svg"))).forEach(f -> copy(f, new File(target, f.getName())));
+        Arrays.stream(IMAGES_DIR.listFiles(file -> file.getName().endsWith(".png") || file.getName().endsWith(".svg"))).forEach(f -> copy(f, new File(TARGET_DIR, f.getName())));
         System.out.println("Copied images");
     }
 
     public static void copyResources() {
-        Arrays.stream(resources.listFiles()).forEach(f -> copy(f, new File(target, f.getName())));
+        Arrays.stream(RESOURCES_DIR.listFiles()).forEach(f -> copy(f, new File(TARGET_DIR, f.getName())));
         System.out.println("Copied resources");
     }
 
@@ -76,7 +81,7 @@ public class Main {
             File nodeModules = new File("node_modules");
             Properties properties = new Properties();
             properties.load(new FileReader("npm-include.properties"));
-            properties.forEach((k, v) -> copy(new File(nodeModules, (String) k), new File(target, (String) v)));
+            properties.forEach((k, v) -> copy(new File(nodeModules, (String) k), new File(TARGET_DIR, (String) v)));
             System.out.println("Copied NPM resources");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -102,7 +107,7 @@ public class Main {
 
     public static void browserSync() throws IOException {
         new ProcessBuilder("browser-sync", "start", "--server", "--directory", "--files", "*.*")
-                .directory(target)
+                .directory(TARGET_DIR)
                 .start();
         System.out.println("Started browser sync");
     }
@@ -110,6 +115,16 @@ public class Main {
     private static void copy(File source, File target) {
         try {
             Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadData() {
+        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+        try {
+            Plan plan = objectMapper.readValue(new File(DATA_DIR, "plan.yml"), Plan.class);
+            data.put("plan", plan);
         } catch (IOException e) {
             e.printStackTrace();
         }
