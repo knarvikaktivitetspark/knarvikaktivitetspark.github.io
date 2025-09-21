@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileReader;
@@ -33,6 +34,9 @@ public class Main {
     private static Map<String, Object> data = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
+        FileUtils.deleteDirectory(TARGET_DIR);
+        TARGET_DIR.mkdir();
+
         copyNpmResources();
         copyImages();
         copyResources();
@@ -114,6 +118,7 @@ public class Main {
 
     private static void copy(File source, File target) {
         try {
+            if (!target.getParentFile().isDirectory()) target.getParentFile().mkdirs();
             Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
