@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,16 +12,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Web {
 
@@ -31,6 +35,10 @@ public class Web {
     public static final File IMAGES_DIR = new File(HOME_DIR, "images");
     public static final File RESOURCES_DIR = new File(HOME_DIR, "resources");
     public static final File DATA_DIR = new File(HOME_DIR, "data");
+
+    public static final Set<String> PAGES = Set.of("index", "nytt");
+
+    private static ExecutorService EXECUTOR = Executors.newFixedThreadPool(1);
 
     private static Map<String, Object> data = new HashMap<>();
 
@@ -46,6 +54,7 @@ public class Web {
         Web.browserSync();
 
         new Thread(() -> watch(TEMPLATES_DIR, Web::build)).start();
+        new Thread(() -> watch(new File(TEMPLATES_DIR, "nytt"), Web::build)).start();
         new Thread(() -> watch(IMAGES_DIR, Web::copyImages)).start();
         new Thread(() -> watch(RESOURCES_DIR, Web::copyResources)).start();
         new Thread(() -> watch(DATA_DIR, () -> { loadData(); build(); })).start();
@@ -57,12 +66,14 @@ public class Web {
             cfg.setDirectoryForTemplateLoading(TEMPLATES_DIR);
             cfg.setDefaultEncoding(StandardCharsets.UTF_8.toString());
 
-            Template template = cfg.getTemplate("index.ftl");
+            for (String page : PAGES) {
+                Template template = cfg.getTemplate(page + ".ftl");
 
-            if (!TARGET_DIR.isDirectory()) TARGET_DIR.mkdir();
+                if (!TARGET_DIR.isDirectory()) TARGET_DIR.mkdir();
 
-            try (Writer out = new FileWriter(new File(TARGET_DIR, "index.html"))) {
-                template.process(data, out);
+                try (Writer out = new FileWriter(new File(TARGET_DIR, page + ".html"))) {
+                    template.process(data, out);
+                }
             }
 
             System.out.println("Built pages");
@@ -102,7 +113,7 @@ public class Web {
             while (true) {
                 WatchKey take = service.take();
                 take.pollEvents().clear();
-                runnable.run();
+                EXECUTOR.submit(runnable);
                 take.reset();
             }
         } catch (Exception e) {
@@ -118,10 +129,17 @@ public class Web {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        List<News> news = Arrays.stream(new File(TEMPLATES_DIR, "nytt").listFiles(f -> f.getName().endsWith(".ftl")))
+                .map(File::getName)
+                .sorted(Comparator.reverseOrder())
+                .map(n -> new News(n.substring(0, 8), n))
+                .toList();
+        data.put("newsEntries", news);
     }
 
     public static void browserSync() throws IOException {
-        new ProcessBuilder("browser-sync", "start", "--server", "--directory", "--files", "*.*")
+        new ProcessBuilder("browser-sync", "start", "--server", "--index", "index.html", "--files", "*.*")
                 .directory(TARGET_DIR)
                 .start();
         System.out.println("Started browser sync");
@@ -130,7 +148,7 @@ public class Web {
     private static void copy(File source, File target) {
         try {
             if (!target.getParentFile().isDirectory()) target.getParentFile().mkdirs();
-            Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            FileUtils.copyFile(source, target);
         } catch (IOException e) {
             e.printStackTrace();
         }
