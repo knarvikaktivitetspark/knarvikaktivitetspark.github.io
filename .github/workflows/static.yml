@@ -28,8 +28,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - run: mvn clean package exec:java
-        working-directory: web
+      - name: Build
+        run: ./build.sh
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
