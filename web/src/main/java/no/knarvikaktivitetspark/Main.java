@@ -27,11 +27,12 @@ public class Main {
     private static final File images =  new File("images");
     private static final File resources =  new File("resources");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         copyNpmResources();
         copyImages();
         copyResources();
         build();
+        browserSync();
 
         new Thread(() -> watch(templates, Main::build)).start();
         new Thread(() -> watch(images, Main::copyImages)).start();
@@ -97,6 +98,13 @@ public class Main {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void browserSync() throws IOException {
+        new ProcessBuilder("browser-sync", "start", "--server", "--directory", "--files", "*.*")
+                .directory(target)
+                .start();
+        System.out.println("Started browser sync");
     }
 
     private static void copy(File source, File target) {
