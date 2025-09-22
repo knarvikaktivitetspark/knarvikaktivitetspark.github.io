@@ -1,4 +1,7 @@
 #!/bin/bash -e
 
-cd web
+if [ ! -d node_modules ]; then
+  npm install
+fi
+
 mvn clean package exec:java
