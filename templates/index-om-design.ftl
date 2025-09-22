@@ -27,7 +27,7 @@
         pumptracker. Dette skal bli et ordentlig samlingspunkt for barn og unge!
     </p>
     <p>
-        Kanskje er det også noen voksne som vil kose seg her og.
+        Kanskje er det også noen voksne som vil kose seg her.
     </p>
 </div>
 
