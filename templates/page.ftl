@@ -24,7 +24,7 @@
      <div class="collapse navbar-collapse bg-white p-3" id="navbarCollapse">
        <ul class="navbar-nav me-auto">
          <li class="nav-item"><a class="nav-link" href="/#om">Om prosjektet</a></li>
-         <li class="nav-item"><a class="nav-link" href="/nytt.html">Nyheter</a></li>
+         <!--<li class="nav-item"><a class="nav-link" href="/nytt.html">Nyheter</a></li>-->
          <li class="nav-item"><a class="nav-link" href="/#bidra">Bidra</a></li>
          <li class="nav-item"><a class="nav-link" href="/#sponsorer">Sponsorer</a></li>
          <li class="nav-item"><a class="nav-link" href="/#kontakt">Kontakt oss</a></li>

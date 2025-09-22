@@ -1,4 +1,5 @@
 #!/bin/bash -e
 
-cd web
-mvn clean package exec:java -Pserve
+./build.sh
+
+mvn package exec:java -Pserve
