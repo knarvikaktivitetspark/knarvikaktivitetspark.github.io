@@ -11,6 +11,7 @@
  <link rel="stylesheet" href="bootstrap-icons.min.css">
  <link href="styles.css" rel="stylesheet">
  <script src="bootstrap.bundle.js"></script>
+ <script defer src="https://cloud.umami.is/script.js" data-website-id="3d8acba4-f4ff-4269-9d43-d88ba453ea70"></script>
 </head>
 
 <body>
