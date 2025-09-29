@@ -15,7 +15,7 @@
 </div>
 
 <div id="bidra" class="link-fix"></div>
-<div class="container mt-5 text-center">
+<div class="container text-center">
     <#include "index-bidra.ftl">
 </div>
 
