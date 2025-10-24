@@ -6,7 +6,7 @@
     <i class="bi bi-mailbox"></i> superfritt@gmail.com
 </a>
 <a class="link-light btn btn-secondary m-1" href="tel:+4745083666">
-    <i class="bi bi-phone"></i> +47 96 91 92 84
+    <i class="bi bi-phone"></i> +47 45 08 36 66
 </a>
 
 <p class="display-6 mt-5">Stian Thorgersen</p>
